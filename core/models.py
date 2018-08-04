@@ -15,3 +15,5 @@ class Answer(models.Model):
     def get_absolute_url(self):
         return reverse('core:answer-success', kwargs={'user_id': self.user.id})
 
+
+
