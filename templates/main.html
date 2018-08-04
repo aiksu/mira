@@ -1,0 +1,118 @@
+{% load static %}
+{% load staticfiles %}
+{% load humanize %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Albert B @hardqode">
+
+    <title>{% block page_title %}Узнай, что о тебе думают{% endblock %}</title>
+    <meta name="description" content="Всего 3 вопроса">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    {#    <link href="{% static 'core/css/main.css' %}" rel="stylesheet">#}
+
+    {#    <link rel="shortcut icon" href="{% static 'core/img/favicon.ico' %}" type="image/x-icon">#}
+    {#    <link rel="icon" href="{% static 'core/img/favicon.ico' %}" type="image/x-icon">#}
+
+    {% block page_css %}
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    {% if user.is_anonymous %}
+        <section>
+            <div class="container pt-5">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-4 col-md-6">
+                        <form method="post" action="{% url 'account_signup' %}">
+                            <h3 class="text-center pb-4">Хочешь узнать, что о тебе думают?</h3>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width: 100px">Имя</div>
+                                    </div>
+                                    <input type="text" name="first_name" class="form-control"
+                                           placeholder="Аяз">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width: 100px">Фамилия</div>
+                                    </div>
+                                    <input type="text" name="last_name" class="form-control"
+                                           placeholder="Шабутдинов">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width: 100px">Email</div>
+                                    </div>
+                                    <input type="email" name="email" class="form-control"
+                                           placeholder="yesyesyes@likebz.org">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width: 100px">Пароль</div>
+                                    </div>
+                                    <input type="password" name="password1" class="form-control"
+                                           placeholder="********">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-block btn-outline-secondary mt-4 mb-5">Принять участие
+                                </button>
+                                <a href="{% url 'account_login' %}">Вход
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% else %}
+        {% include 'core/include/results.html' %}
+    {% endif %}
+{% endblock %}
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+    function getCSRF() {
+        return $('input[name="csrfmiddlewaretoken"]').val();
+    }
+
+    $('#id_logout').on('click', function () {
+        $('#form_logout').submit();
+        return false;
+    })
+</script>
+
+{% block page_js %}
+
+{% endblock %}
+</body>
+</html>

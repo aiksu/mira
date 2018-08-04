@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% load humanize %}
+
+{% block content %}
+    <section>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8 col-md-8">
+                    <h2 class="text-center">ТРИПАНАЦЕЯ</h2>
+                    <blockquote class="blockquote">
+                        <p class="mb-0"><b>Привет!</b></p>
+                        <p class="mb-0">Напиши три прилагательных, которые у тебя ассоциируются со мной. Не стесняйся формулировок, опрос анонимный =)</p>
+                        <footer class="blockquote-footer text-right">{{ target.get_full_name }}</footer>
+                    </blockquote>
+                </div>
+                <div class="col-12 col-lg-8 col-md-8">
+                    <form action="{% url 'core:answer-create' target.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_answer1">Первое прилагательное</label>
+                            <input type="text" class="form-control" id="id_answer1" name="answer1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_answer2">Второе прилагательное</label>
+                            <input type="text" class="form-control" id="id_answer2" name="answer2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_answer3">Третье прилагательное</label>
+                            <input type="text" class="form-control" id="id_answer3" name="answer3" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-block btn-outline-secondary mt-4">Проголосовать</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block page_js %}
+
+{% endblock %}

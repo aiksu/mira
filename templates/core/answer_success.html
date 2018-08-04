@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{% load humanize %}
+
+{% block content %}
+    <section>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8 col-md-8">
+{#                    <h2 class="text-center">ТРИПАНАЦЕЯ</h2>#}
+                    <blockquote class="blockquote text-center mt-5">
+                        <p class="mb-0"><b>Спасибо!</b></p>
+                        <p class="mb-0">Твой ответ принят!</p>
+                        <footer class="blockquote-footer">{{ target.get_full_name }}</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block page_js %}
+
+{% endblock %}

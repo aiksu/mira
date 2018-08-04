@@ -1,0 +1,45 @@
+{% load humanize %}
+
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h4>Цель опроса: {{ user.get_full_name }}</h4>
+                <p>Ссылка для сбора данных: <a
+                        href="{% url 'core:answer-get' user.id %}">{% url 'core:answer-get' user.id %}</a></p>
+                <table class="table mt-4">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Первый</th>
+                        <th scope="col">Второй</th>
+                        <th scope="col">Третий</th>
+                        <th scope="col">Когда</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for a in answer_list %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ a.answer1 }}</td>
+                            <td>{{ a.answer2 }}</td>
+                            <td>{{ a.answer3 }}</td>
+                            <td>{{ a.created|naturaltime }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {#                <a id="id_logout" class="dropdown-item" href="">Logout</a>#}
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form id="form_logout" method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
