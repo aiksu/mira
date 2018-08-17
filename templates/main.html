@@ -41,7 +41,7 @@
                                         <div class="input-group-text" style="width: 100px">Имя</div>
                                     </div>
                                     <input type="text" name="first_name" class="form-control"
-                                           placeholder="Аяз">
+                                           placeholder="Аяз" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -56,10 +56,21 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
+                                        <div class="input-group-text" style="width: 100px">Телефон</div>
+                                    </div>
+                                    <input type="tel" name="phone" class="form-control"
+                                           placeholder="+7 (917) 356 2219" data-inputmask="'mask': '+7 (999) 999 9999'"
+                                           autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" required>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
                                         <div class="input-group-text" style="width: 100px">Email</div>
                                     </div>
                                     <input type="email" name="email" class="form-control"
-                                           placeholder="yesyesyes@likebz.org">
+                                           placeholder="yesyesyes@likebz.org" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -68,14 +79,15 @@
                                         <div class="input-group-text" style="width: 100px">Пароль</div>
                                     </div>
                                     <input type="password" name="password1" class="form-control"
-                                           placeholder="********">
+                                           placeholder="********" minlength="6" pattern=".{6,}" required>
+                                    <small id="passwordHelp" class="form-text text-muted">Минимальное количество символов - 6</small>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-block btn-outline-secondary mt-4 mb-5">Принять участие
+                                <button type="submit" class="btn btn-block btn-outline-secondary mt-4 mb-2">Принять
+                                    участие
                                 </button>
-                                <a href="{% url 'account_login' %}">Вход
-                                </a>
+                                <p class="small">Или <a href="{% url 'account_login' %}">войдите</a>, если у вас уже есть аккаунт</p>
                             </div>
                         </form>
                     </div>
@@ -85,6 +97,15 @@
     {% else %}
         {% include 'core/include/results.html' %}
     {% endif %}
+    <section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-4 col-md-6">
+                <p class="text-center"><a target="_blank" href="https://vk.com/imirata" class="btn btn-link btn-lg">Make Sense | Блог Миры Таналиевой</a></p>
+            </div>
+        </div>
+    </div>
+    </section>
 {% endblock %}
 
 
@@ -100,6 +121,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="{% static 'core/js/jquery.inputmask.bundle.js' %}"></script>
 <script>
     function getCSRF() {
         return $('input[name="csrfmiddlewaretoken"]').val();
@@ -108,7 +130,9 @@
     $('#id_logout').on('click', function () {
         $('#form_logout').submit();
         return false;
-    })
+    });
+
+    $("input[data-inputmask]").inputmask();
 </script>
 
 {% block page_js %}
