@@ -37,7 +37,7 @@ if socket.gethostname() == '85964.local':
     #         'PORT': '5432',
     #     },
     # }
-    ALLOWED_HOSTS = ['188.225.72.93']
+    ALLOWED_HOSTS = ['test.brandmira.ru']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
