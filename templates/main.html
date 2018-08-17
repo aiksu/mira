@@ -60,7 +60,8 @@
                                     </div>
                                     <input type="tel" name="phone" class="form-control"
                                            placeholder="+7 (917) 356 2219" data-inputmask="'mask': '+7 (999) 999 9999'"
-                                           autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" required>
+                                           autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off"
+                                           required>
 
                                 </div>
                             </div>
@@ -80,14 +81,17 @@
                                     </div>
                                     <input type="password" name="password1" class="form-control"
                                            placeholder="********" minlength="6" pattern=".{6,}" required>
-                                    <small id="passwordHelp" class="form-text text-muted">Минимальное количество символов - 6</small>
+                                    <small id="passwordHelp" class="form-text text-muted">Минимальное количество
+                                        символов - 6
+                                    </small>
                                 </div>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-block btn-outline-secondary mt-4 mb-2">Принять
                                     участие
                                 </button>
-                                <p class="small">Или <a href="{% url 'account_login' %}">войдите</a>, если у вас уже есть аккаунт</p>
+                                <p class="small">Или <a href="{% url 'account_login' %}">войдите</a>, если у вас уже
+                                    есть аккаунт</p>
                             </div>
                         </form>
                     </div>
@@ -95,16 +99,35 @@
             </div>
         </section>
     {% else %}
-        {% include 'core/include/results.html' %}
+        <section>
+            <div class="container pt-5 pb-5">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-4 col-md-6 text-center">
+                        <h3 class="text-center pb-4">Ваша персональная ссылка для сбора ответов:</h3>
+{#                        <input type="url" value="{% url 'core:answer-get' user.id %}">#}
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" id="validationDefaultUsername"
+                                   placeholder="Ссылка" aria-describedby="inputGroupPrepend2" value="test.brandmira.ru{% url 'core:answer-get' user.id %}" readonly>
+                            <div class="input-group-addon">
+                                <a href="{% url 'core:answer-get' user.id %}" class="input-group-text" id="inputGroupPrepend2" style="text-decoration: none">Перейти</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {#        {% include 'core/include/results.html' %}#}
     {% endif %}
     <section>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-4 col-md-6">
-                <p class="text-center"><a target="_blank" href="https://vk.com/imirata" class="btn btn-link btn-lg">Make Sense | Блог Миры Таналиевой</a></p>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-4 col-md-6">
+                    <p class="text-center"><a target="_blank" href="https://vk.com/imirata" class="btn btn-link btn-lg">Make
+                        Sense | Блог Миры Таналиевой</a></p>
+                </div>
             </div>
         </div>
-    </div>
     </section>
 {% endblock %}
 
