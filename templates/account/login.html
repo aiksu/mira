@@ -15,16 +15,18 @@
     <div class="container pt-5">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-4 col-md-6">
-
+            {{ form.non_field_errors }}
                 <form class="login" method="POST" action="{% url 'account_login' %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
                         <input name="login" type="text" class="form-control">
+                        {% if form.login.errors %}<div class="invalid-feedback">Неправильная почта</div>{% endif %}
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Пароль</label>
                         <input name="password" type="password" class="form-control">
+                        {% if form.password.errors %}<div class="invalid-feedback">Неправильный пароль</div>{% endif %}
                     </div>
                     <div class="form-check">
                         <input name="remember" type="checkbox" class="form-check-input" id="id_remember">
