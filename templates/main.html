@@ -80,11 +80,12 @@
                                         <div class="input-group-text" style="width: 100px">Пароль</div>
                                     </div>
                                     <input type="password" name="password1" class="form-control"
-                                           placeholder="********" pattern=".{6,}" aria-describedby="passwordHelp" required>
+                                           placeholder="********" pattern=".{6,}" aria-describedby="passwordHelp"
+                                           required>
                                 </div>
                                 <small id="passwordHelp" class="form-text text-muted">Минимальное количество
-                                        символов - 6
-                                    </small>
+                                    символов - 6
+                                </small>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-block btn-outline-secondary mt-4 mb-2">Принять
@@ -104,16 +105,19 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-4 col-md-6 text-center">
                         <h3 class="text-center pb-4">Ваша персональная ссылка для сбора ответов:</h3>
-{#                        <input type="url" value="{% url 'core:answer-get' user.id %}">#}
+                        {#                        <input type="url" value="{% url 'core:answer-get' user.id %}">#}
                         <div class="input-group">
 
-                            <input type="text" class="form-control" id="validationDefaultUsername"
-                                   placeholder="Ссылка" aria-describedby="inputGroupPrepend2" value="test.brandmira.ru{% url 'core:answer-get' user.id %}" readonly>
+                            <input type="text" class="form-control" id="id_link"
+                                   placeholder="Ссылка" aria-describedby="inputGroupPrepend2"
+                                   value="test.brandmira.ru{% url 'core:answer-get' user.id %}" readonly>
                             <div class="input-group-addon">
-                                <a href="{% url 'core:answer-get' user.id %}" class="input-group-text" id="inputGroupPrepend2" style="text-decoration: none">Перейти</a>
+                                <button onclick="CopyToClipboard('id_link')" href="{% url 'core:answer-get' user.id %}" class="input-group-text"
+                                   id="inputGroupPrepend2" style="text-decoration: none">Скопировать</button>
                             </div>
                         </div>
-                        <a href="{% url 'core:answers' %}" class="btn btn-block btn-outline-secondary mt-4 mb-2">Просмотреть ответы</a>
+                        <a  href="{% url 'core:answers' %}" class="btn btn-block btn-outline-secondary mt-4 mb-2">Просмотреть
+                            ответы</a>
                     </div>
                 </div>
             </div>
@@ -157,6 +161,30 @@
     });
 
     $("input[data-inputmask]").inputmask();
+
+    function CopyToClipboard(containerid) {
+        if (document.selection) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(document.getElementById(containerid));
+            range.select().createTextRange();
+            document.execCommand("Copy");
+
+        } else if (window.getSelection) {
+            var range = document.createRange();
+            range.selectNode(document.getElementById(containerid));
+            window.getSelection().addRange(range);
+            document.execCommand("Copy");
+            alert("Ссылка скопирована");
+            /*$('#id_link').tooltip({
+                'placement': 'bottom',
+                'title': 'Ссылка скопирована'
+            })*/
+        }
+    }
+
+    /*$("#id_link").on('click', function () {
+        CopyToClipboard('id_link');
+    })*/
 </script>
 
 {% block page_js %}
