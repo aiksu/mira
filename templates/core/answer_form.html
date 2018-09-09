@@ -6,10 +6,10 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8 col-md-8">
-                    <h2 class="text-center">АНОНИМНО</h2>
+                    <h2 class="text-center">ТРИ ПРИЛАГАТЕЛЬНЫХ</h2>
                     <blockquote class="blockquote">
                         <p class="mb-0"><b>Привет!</b></p>
-                        <p class="mb-0">Ответь, пожалуйста, на 3 вопроса обо мне. Не стесняйся формулировок, опрос анонимный =)</p>
+                        <p class="mb-0">Напиши три прилагательных, которые у тебя ассоциируются со мной. Не стесняйся формулировок, опрос анонимный =)</p>
                         <footer class="blockquote-footer text-right">{{ target.get_full_name }}</footer>
                     </blockquote>
                 </div>
@@ -17,16 +17,16 @@
                     <form action="{% url 'core:answer-create' target.id %}" method="post">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="id_answer1">Если бы вы были в комнате, где меня нет, как бы вы описали меня другому человеку? Что бы вы сказали обо мне?</label>
-                            <textarea type="text" class="form-control" id="id_answer1" name="answer1" required></textarea>
+                            <label for="id_answer1">Первое прилагательное</label>
+                            <input type="text" class="form-control" id="id_answer1" name="answer1" required>
                         </div>
                         <div class="form-group">
-                            <label for="id_answer2">Как вы думаете в чем я хорошо разбираюсь? В какой сфере вы попросили бы мой совет?</label>
-                            <textarea type="text" class="form-control" id="id_answer2" name="answer2" required></textarea>
+                            <label for="id_answer2">Второе прилагательное</label>
+                            <input type="text" class="form-control" id="id_answer2" name="answer2" required>
                         </div>
                         <div class="form-group">
-                            <label for="id_answer3">Предположите, какой у меня уровень дохода?</label>
-                            <textarea type="text" class="form-control" id="id_answer3" name="answer3" required></textarea>
+                            <label for="id_answer3">Третье прилагательное</label>
+                            <input type="text" class="form-control" id="id_answer3" name="answer3" required>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-block btn-outline-secondary mt-4">Проголосовать</button>
