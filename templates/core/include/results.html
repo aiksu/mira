@@ -34,7 +34,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-2">
+                <a class="btn btn-link" href="{% url 'core:index' %}">На главную</a>
+            </div>
+            <div class="col-12 mt-2">
                 <form id="form_logout" method="post" action="{% url 'account_logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-link">Выйти</button>
