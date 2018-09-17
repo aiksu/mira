@@ -1,6 +1,14 @@
 {% extends 'main.html' %}
 {% load humanize %}
 
+{% block page_title %}
+    Привет! Ответь, пожалуйста, на 3 вопроса обо мне!
+{% endblock %}
+
+{% block page_description %}
+    {{ target.get_full_name }}
+{% endblock %}
+
 {% block content %}
     <section>
         <div class="container mt-5">
