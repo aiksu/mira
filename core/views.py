@@ -22,12 +22,23 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         # Add in the website
         if self.request.user.is_authenticated:
-            context['answer_list'] = Answer.objects.filter(user = self.request.user)
+            context['answer_list'] = Answer.objects.filter(user=self.request.user)
         return context
 
 
 class AnswerTemplateView(TemplateView):
     template_name = "core/answer_form.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in the website
+        context['target'] = get_object_or_404(User, pk=self.kwargs['user_id'])
+        return context
+
+
+class PollTemplateView(TemplateView):
+    template_name = "core/poll_form.html"
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -50,12 +61,34 @@ class AnswerCreateView(CreateView):
         return super(AnswerCreateView, self).form_valid(form)
 
 
+class PollCreateView(CreateView):
+    model = Poll
+    fields = ['poll1', 'poll2', 'poll3']
+    # form_class = WebsiteBugForm
+    template_name = "core/poll_form.html"
+
+    def form_valid(self, form):
+        target = get_object_or_404(User, pk=self.kwargs['user_id'])
+        form.instance.user = target
+
+        return super(PollCreateView, self).form_valid(form)
+
+
 class AnswerListView(ListView):
     model = Answer
     paginate_by = 1000  # if pagination is desired
 
     def get_queryset(self):
         return Answer.objects.filter(user=self.request.user)
+
+
+class PollListView(ListView):
+    model = Poll
+    paginate_by = 1000  # if pagination is desired
+    template_name = 'core/answer_list.html'
+
+    def get_queryset(self):
+        return Poll.objects.filter(user=self.request.user)
 
 
 # class AnswerDetailView(DetailView):
@@ -72,3 +105,13 @@ class AnswerSuccessTemplateView(TemplateView):
         context['target'] = get_object_or_404(User, pk=self.kwargs['user_id'])
         return context
 
+
+class PollSuccessTemplateView(TemplateView):
+    template_name = "core/answer_success.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in the website
+        context['target'] = get_object_or_404(User, pk=self.kwargs['user_id'])
+        return context

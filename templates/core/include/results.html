@@ -5,32 +5,73 @@
         <div class="row">
             <div class="col-12">
                 <h4>Цель опроса: {{ user.get_full_name }}</h4>
-                <p>Ссылка для сбора данных: <a
-                        href="{% url 'core:answer-get' user.id %}">{% url 'core:answer-get' user.id %}</a></p>
-                <table class="table mt-4">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Первый</th>
-                        <th scope="col">Второй</th>
-                        <th scope="col">Третий</th>
-                        <th scope="col">Когда</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for a in answer_list %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ a.answer1 }}</td>
-                            <td>{{ a.answer2 }}</td>
-                            <td>{{ a.answer3 }}</td>
-                            <td>{{ a.created|naturaltime }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                {#                <a id="id_logout" class="dropdown-item" href="">Logout</a>#}
-
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                           role="tab" aria-controls="nav-home" aria-selected="true">Три прилагательных</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                           role="tab" aria-controls="nav-profile" aria-selected="false">Обо мне</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <p class="mt-4">Ссылка для сбора данных "Три прилагательных": <a
+                                href="{% url 'core:answer-get' user.id %}">{% url 'core:answer-get' user.id %}</a></p>
+                        <table class="table mt-4">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Первый</th>
+                                <th scope="col">Второй</th>
+                                <th scope="col">Третий</th>
+                                <th scope="col">Когда</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for a in user.answer_results.all %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ a.answer1 }}</td>
+                                    <td>{{ a.answer2 }}</td>
+                                    <td>{{ a.answer3 }}</td>
+                                    <td>{{ a.created|naturaltime }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <p class="mt-4">Ссылка для сбора данных "Обо мне": <a
+                                href="{% url 'core:poll-get' user.id %}">{% url 'core:poll-get' user.id %}</a></p>
+                        <table class="table my-4">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Первый</th>
+                                <th scope="col">Второй</th>
+                                <th scope="col">Третий</th>
+                                <th scope="col">Когда</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for a in user.poll_results.all %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ a.poll1|linebreaks }}</td>
+                                    <td>{{ a.poll2|linebreaks }}</td>
+                                    <td>{{ a.poll3|linebreaks }}</td>
+                                    <td>{{ a.created|naturaltime }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <p><b>Первый вопрос:</b> Если бы вы были в комнате, где меня нет, как бы вы описали меня другому
+                            человеку? Что бы вы сказали обо мне?</p>
+                        <p><b>Второй вопрос:</b> Как вы думаете в чем я хорошо разбираюсь? В какой сфере вы попросили бы мой
+                            совет?</p>
+                        <p><b>Третий вопрос:</b> Предположите, какой у меня уровень дохода?</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
